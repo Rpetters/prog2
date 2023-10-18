@@ -27,7 +27,7 @@ def simulate_point(args):
     return monte_carlo_simulation(points_per_process, d)
 
 def parallel_monte_carlo(n, d, processes):
-    points_per_process = n  #now each process handles n points
+    points_per_process = n 
     args = [(points_per_process, d) for _ in range(processes)]
 
     with concurrent.futures.ProcessPoolExecutor(max_workers=processes) as executor:
@@ -36,18 +36,18 @@ def parallel_monte_carlo(n, d, processes):
 
 def main():
     d = 11
-    n = 100000  #each process will handle 1,000,000 points
+    n = 100000
     processes = 10
 
     #Without parallelization
     start = time.perf_counter()
-    count_single = monte_carlo_simulation(n * processes, d)  #single process handles all 10,000,000 points
+    count_single = monte_carlo_simulation(n * processes, d)
     end = time.perf_counter()
     time_single = end - start
 
     #With parallelization
     start = time.perf_counter()
-    count_parallel = parallel_monte_carlo(n, d, processes)  #total points across all processes is 10,000,000
+    count_parallel = parallel_monte_carlo(n, d, processes)
     end = time.perf_counter()
     time_parallel = end - start
 

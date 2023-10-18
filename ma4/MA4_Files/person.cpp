@@ -1,5 +1,4 @@
 #include <cstdlib>
-
 class Person{
     public:
         Person(unsigned int);

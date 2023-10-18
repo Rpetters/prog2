@@ -20,7 +20,7 @@ class Person(object):
         lib.Person_set(self.obj, age)
 
     def fib(self):
-        return lib.Person_fib(self.obj)  #call the new C function
+        return lib.Person_fib(self.obj)
     
     def __del__(self):
         return lib.Person_delete(self.obj)
