@@ -59,7 +59,7 @@ def time_functions_and_plot():
     plt.savefig('fibonacci_timings.png')  # Save figure
 
     # Calculate Fibonacci number for n = 47 using C++ and Numba
-    n = 10
+    n = 47
     person = Person(n)
     print("Fibonacci for n=47 (C++):", person.fib())
     print("Fibonacci for n=47 (Numba):", fib_numba(n))
