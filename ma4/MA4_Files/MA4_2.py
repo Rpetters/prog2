@@ -13,56 +13,75 @@ def fib_py(n):
     else:
         return(fib_py(n-1) + fib_py(n-2))
 
-#Numba function
+# Implement the Numba version of the Fibonacci function
 @njit
 def fib_numba(n):
     if n <= 1:
         return n
     else:
-        return(fib_numba(n-1) + fib_numba(n-2))
+        return fib_numba(n-1) + fib_numba(n-2)
 
-def time_functions_and_plot():
-    n_values = list(range(30, 46))
-    times_py = []
-    times_numba = []
-    times_cpp = []
+def main():
+    # Ranges for the Fibonacci numbers
+    range1 = range(30, 46)  # for all methods
+    range2 = range(20, 31)  # for pure Python and Numba
 
-    # Time the functions
-    for n in n_values:
-        #Python
+    # Store timings
+    timings_py = []
+    timings_numba = []
+    timings_cpp = []
+
+    # Measure timings for pure Python and Numba in range2
+    for n in range2:
         start = time.perf_counter()
-        fib_py(n)
+        fib_py(n)  # assuming fib_py is your pure Python Fibonacci function
         end = time.perf_counter()
-        times_py.append(end - start)
+        timings_py.append(end - start)
 
-        #Numba
         start = time.perf_counter()
         fib_numba(n)
         end = time.perf_counter()
-        times_numba.append(end - start)
+        timings_numba.append(end - start)
 
-        #C++
-        person = Person(n)
+    # Measure timings for all methods in range1
+    for n in range1:
+        # Numba
         start = time.perf_counter()
-        person.fib()
+        fib_numba(n)
         end = time.perf_counter()
-        times_cpp.append(end - start)
+        timings_numba.append(end - start)
 
-    #Create plots
+        # C++
+        f = Person(n)
+        start = time.perf_counter()
+        f.fib()
+        end = time.perf_counter()
+        timings_cpp.append(end - start)
+
+    # Generate plots
     plt.figure()
-    plt.plot(n_values, times_py, label='Python')
-    plt.plot(n_values, times_numba, label='Numba')
-    plt.plot(n_values, times_cpp, label='C++')
-    plt.xlabel('n')
+    plt.plot(range2, timings_py, label='Python')
+    plt.plot(range2, timings_numba[:len(range2)], label='Numba')  # only the first part of Numba timings
+    plt.xlabel('Fibonacci number')
     plt.ylabel('Time (seconds)')
+    plt.title('Execution time for Fibonacci calculations')
     plt.legend()
-    plt.savefig('fibonacci_timings.png')  # Save figure
+    plt.savefig('fibonacci_timings_range2.png')  # adjust file name as needed
 
-    # Calculate Fibonacci number for n = 47 using C++ and Numba
+    plt.figure()
+    plt.plot(range1, timings_numba[len(range2)-1:], label='Numba')  # the rest of Numba timings
+    plt.plot(range1, timings_cpp, label='C++')
+    plt.xlabel('Fibonacci number')
+    plt.ylabel('Time (seconds)')
+    plt.title('Execution time for Fibonacci calculations')
+    plt.legend()
+    plt.savefig('fibonacci_timings_range1.png')
+
+    '''# Calculate Fibonacci number for n = 47 using C++ and Numba
     n = 47
     person = Person(n)
     print("Fibonacci for n=47 (C++):", person.fib())
-    print("Fibonacci for n=47 (Numba):", fib_numba(n))
+    print("Fibonacci for n=47 (Numba):", fib_numba(n))'''
 
 if __name__ == "__main__":
-    time_functions_and_plot()
+    main()
