@@ -22,7 +22,7 @@ def fib_numba(n):
         return(fib_numba(n-1) + fib_numba(n-2))
 
 def time_functions_and_plot():
-    n_values = list(range(10, 20))
+    n_values = list(range(30, 46))
     times_py = []
     times_numba = []
     times_cpp = []
