@@ -4,14 +4,14 @@ from numba import njit
 import time
 from matplotlib import pyplot as plt
 
-# Python function
+#Python function
 def fib_py(n):
     if n <= 1:
         return n
     else:
         return(fib_py(n-1) + fib_py(n-2))
 
-# Implement the Numba version of the Fibonacci function
+#Numba function
 @njit
 def fib_numba(n):
     if n <= 1:
@@ -20,65 +20,62 @@ def fib_numba(n):
         return fib_numba(n-1) + fib_numba(n-2)
 
 def main():
-    # Ranges for the Fibonacci numbers
-    range1 = range(30, 46)  # for all methods
-    range2 = range(20, 31)  # for pure Python and Numba
+    #Ranges for the Fibonacci numbers
+    range1 = range(30, 46)  #for all methods
+    range2 = range(20, 31)  #for python and Numba
 
-    # Store timings
+    #Store timings
     timings_py = []
     timings_numba = []
     timings_cpp = []
 
-    # Warm-up Numba function
-    fib_numba(1)
-
-    # New: create just one Person object for C++ calls
-    f = Person(0)  
-
-    # Function to perform timing with repetitions
-    def time_function(func, arg, repetitions=5):
-        total_time = 0
-        for _ in range(repetitions):
-            start = time.perf_counter()
-            func(arg)
-            total_time += time.perf_counter() - start
-        return total_time / repetitions
-
-    # Measure timings for pure Python and Numba in range2
+    #Measure timings for python and Numba in range2
     for n in range2:
-        timings_py.append(time_function(fib_py, n))
-        timings_numba.append(time_function(fib_numba, n))
-
-    for n in range1:
-        # Numba
-        timings_numba.append(time_function(fib_numba, n))
-
-        # C++
-        f = Person(n)  # create a new Person instance with age = n
         start = time.perf_counter()
-        f.fib()  # directly call the fib method, no additional arguments needed
+        fib_py(n)  #python
+        end = time.perf_counter()
+        timings_py.append(end - start)
+
+        start = time.perf_counter()
+        fib_numba(n)  #numba
+        end = time.perf_counter()
+        timings_numba.append(end - start)
+
+    #Measure timings for all methods in range1
+    for n in range1:
+        #Numba
+        start = time.perf_counter()
+        fib_numba(n)
+        end = time.perf_counter()
+        timings_numba.append(end - start)
+
+        #C++
+        f = Person(n)  #creating a new Person object with age n
+        start = time.perf_counter()
+        f.fib()  #calling the fib method from the C++ library
         end = time.perf_counter()
         timings_cpp.append(end - start)
 
-    # Generate plots
+    #Generate plots
     plt.figure()
     plt.plot(range2, timings_py, label='Python')
-    plt.plot(range2, timings_numba[:len(range2)], label='Numba')  # only the first part of Numba timings
+    plt.plot(range2, timings_numba[:len(range2)], label='Numba')
     plt.xlabel('Fibonacci number')
     plt.ylabel('Time (seconds)')
     plt.title('Execution time for Fibonacci calculations')
     plt.legend()
-    plt.savefig('fibonacci_timings_range2.png')  # adjust file name as needed
+    plt.savefig('timings_range2.png')
 
     plt.figure()
-    # Correcting the error here: the range for the second set of Numba timings should start from the next index after range2
-    plt.plot(range1, timings_numba[len(range2):], label='Numba')  # the rest of Numba timings
+    plt.plot(range1, timings_numba[len(range2):], label='Numba')
     plt.plot(range1, timings_cpp, label='C++')
     plt.xlabel('Fibonacci number')
     plt.ylabel('Time (seconds)')
     plt.title('Execution time for Fibonacci calculations')
     plt.legend()
-    plt.savefig('fibonacci_timings_range1.png')
+    plt.savefig('timings_range1.png')
+
+
 
     # Uncomment the below part if you want to calculate and print the Fibonacci number for n=47
     # n = 47
