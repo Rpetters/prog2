@@ -4,7 +4,7 @@ Student: Rasmus Pettersson
 Mail: rasmus.pettersson98@gmail.com
 Reviewed by: 
 Reviewed date: 2023-10-18
-"""
+""" 
 
 
 import random
@@ -33,11 +33,11 @@ def calculate_pi(n):
     #Calculate the approximation of pi
     pi_approx = 4 * inside_circle / n
 
-    # Print the results
+    #Print the results
     print(f"For n = {n}:")
     print(f"Number of points inside the circle: {inside_circle}")
     print(f"Approximation of π: {pi_approx:.5f}")
-    print(f"Built-in constant π (math.pi) of Python: {math.pi:.5f}\n")
+
 
     return pi_approx, points_inside_x, points_inside_y, points_outside_x, points_outside_y, inside_circle
 

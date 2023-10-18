@@ -56,7 +56,7 @@ def main():
     volume_parallel = (count_parallel / (n * processes)) * (2 ** d)
 
     print(f"Results without parallelization: Volume: {volume_single:.5f}, Execution time: {time_single:.2f} seconds")
-    print(f"Results with parallelization (10 processes): Volume: {volume_parallel:.5f}, Execution time: {time_parallel:.2f} seconds")
+    print(f"Results with parallelization: Volume: {volume_parallel:.5f}, Execution time: {time_parallel:.2f} seconds")
 
     speedup = time_single / time_parallel
     print(f"The parallelized version was {speedup:.2f} times faster.")
