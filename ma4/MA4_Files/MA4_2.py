@@ -1,3 +1,10 @@
+'''Solutions to module 4 2.2
+Student: Rasmus Pettersson
+Mail: rasmus.pettersson98@gmail.com
+Reviewed by: Roman Iakymchuk
+Reviewed date: 2023-10-18'''
+
+
 #!/usr/bin/env python3
 from person import Person
 from numba import njit

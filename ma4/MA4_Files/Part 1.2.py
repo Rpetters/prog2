@@ -2,7 +2,7 @@
 Solutions to module 4 1.2
 Student: Rasmus Pettersson
 Mail: rasmus.pettersson98@gmail.com
-Reviewed by: 
+Reviewed by: Roman lakymchuk
 Reviewed date: 2023-10-18
 """
 ###

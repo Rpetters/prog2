@@ -2,7 +2,7 @@
 Solutions to module 4 1.3
 Student: Rasmus Pettersson
 Mail: rasmus.pettersson98@gmail.com
-Reviewed by: 
+Reviewed by: Roman Iakymchuk
 Reviewed date: 2023-10-18
 """
 
@@ -35,7 +35,7 @@ def parallel_monte_carlo(n, d, processes):
     return sum(results)
 
 def main():
-    d = 4
+    d = 11
     n = 100000  #each process will handle 1,000,000 points
     processes = 10
 
