@@ -20,6 +20,14 @@ def fib_numba(n):
         return fib_numba(n-1) + fib_numba(n-2)
 
 def main():
+    #warm-up
+    fib_numba(1)
+    f = Person(0)  
+
+    # New: create just one Person object for C++ calls
+    f = Person(0)  
+
+
     #Ranges for the Fibonacci numbers
     range1 = range(30, 46)  #for all methods
     range2 = range(20, 31)  #for python and Numba
@@ -76,12 +84,10 @@ def main():
     plt.savefig('timings_range1.png')
 
 
-
-    # Uncomment the below part if you want to calculate and print the Fibonacci number for n=47
-    # n = 47
-    # person = Person(n)
-    # print("Fibonacci for n=47 (C++):", person.fib())
-    # print("Fibonacci for n=47 (Numba):", fib_numba(n))
+    n = 47
+    person = Person(n)
+    print("Fibonacci for n=47 (C++):", person.fib())
+    print("Fibonacci for n=47 (Numba):", fib_numba(n))
 
 if __name__ == "__main__":
     main()

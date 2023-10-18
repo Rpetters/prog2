@@ -40,7 +40,7 @@ extern "C"{
     Person* Person_new(int n) {return new Person(n);}
     int Person_get(Person* person) {return person->get();}
     void Person_set(Person* person, int n) {person->set(n);}
-    int Person_fib(Person* person) {return person->fib();}  // C bridge for fib
+    int Person_fib(Person* person) {return person->fib();}  //C bridge for fib
     void Person_delete(Person* person){
         if (person){
             delete person;
