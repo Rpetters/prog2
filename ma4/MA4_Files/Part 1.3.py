@@ -35,11 +35,11 @@ def parallel_monte_carlo(n, d, processes):
     return sum(results)
 
 def main():
-    d = 11
+    d = 4
     n = 100000  #each process will handle 1,000,000 points
     processes = 10
 
-    # Without parallelization
+    #Without parallelization
     start = time.perf_counter()
     count_single = monte_carlo_simulation(n * processes, d)  #single process handles all 10,000,000 points
     end = time.perf_counter()
