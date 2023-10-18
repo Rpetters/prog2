@@ -49,13 +49,16 @@ def main():
         timings_py.append(time_function(fib_py, n))
         timings_numba.append(time_function(fib_numba, n))
 
-    # Measure timings for all methods in range1
     for n in range1:
+        # Numba
         timings_numba.append(time_function(fib_numba, n))
 
-        # Use the same Person object for C++
-        f.set(n)  # set new age
-        timings_cpp.append(time_function(f.fib, None))  # no argument needed for f.fib
+        # C++
+        f = Person(n)  # create a new Person instance with age = n
+        start = time.perf_counter()
+        f.fib()  # directly call the fib method, no additional arguments needed
+        end = time.perf_counter()
+        timings_cpp.append(end - start)
 
     # Generate plots
     plt.figure()
