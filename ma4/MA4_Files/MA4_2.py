@@ -4,9 +4,7 @@ from numba import njit
 import time
 from matplotlib import pyplot as plt
 
-
-
-#Python function
+# Python function
 def fib_py(n):
     if n <= 1:
         return n
@@ -69,7 +67,8 @@ def main():
     plt.savefig('fibonacci_timings_range2.png')  # adjust file name as needed
 
     plt.figure()
-    plt.plot(range1, timings_numba[len(range2)-1:], label='Numba')  # the rest of Numba timings
+    # Correcting the error here: the range for the second set of Numba timings should start from the next index after range2
+    plt.plot(range1, timings_numba[len(range2):], label='Numba')  # the rest of Numba timings
     plt.plot(range1, timings_cpp, label='C++')
     plt.xlabel('Fibonacci number')
     plt.ylabel('Time (seconds)')
@@ -77,11 +76,11 @@ def main():
     plt.legend()
     plt.savefig('fibonacci_timings_range1.png')
 
-    '''# Calculate Fibonacci number for n = 47 using C++ and Numba
-    n = 47
-    person = Person(n)
-    print("Fibonacci for n=47 (C++):", person.fib())
-    print("Fibonacci for n=47 (Numba):", fib_numba(n))'''
+    # Uncomment the below part if you want to calculate and print the Fibonacci number for n=47
+    # n = 47
+    # person = Person(n)
+    # print("Fibonacci for n=47 (C++):", person.fib())
+    # print("Fibonacci for n=47 (Numba):", fib_numba(n))
 
 if __name__ == "__main__":
     main()
