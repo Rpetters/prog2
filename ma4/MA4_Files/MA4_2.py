@@ -29,32 +29,33 @@ def main():
     timings_numba = []
     timings_cpp = []
 
+    # Warm-up Numba function
+    fib_numba(1)
+
+    # New: create just one Person object for C++ calls
+    f = Person(0)  
+
+    # Function to perform timing with repetitions
+    def time_function(func, arg, repetitions=5):
+        total_time = 0
+        for _ in range(repetitions):
+            start = time.perf_counter()
+            func(arg)
+            total_time += time.perf_counter() - start
+        return total_time / repetitions
+
     # Measure timings for pure Python and Numba in range2
     for n in range2:
-        start = time.perf_counter()
-        fib_py(n)  # assuming fib_py is your pure Python Fibonacci function
-        end = time.perf_counter()
-        timings_py.append(end - start)
-
-        start = time.perf_counter()
-        fib_numba(n)
-        end = time.perf_counter()
-        timings_numba.append(end - start)
+        timings_py.append(time_function(fib_py, n))
+        timings_numba.append(time_function(fib_numba, n))
 
     # Measure timings for all methods in range1
     for n in range1:
-        # Numba
-        start = time.perf_counter()
-        fib_numba(n)
-        end = time.perf_counter()
-        timings_numba.append(end - start)
+        timings_numba.append(time_function(fib_numba, n))
 
-        # C++
-        f = Person(n)
-        start = time.perf_counter()
-        f.fib()
-        end = time.perf_counter()
-        timings_cpp.append(end - start)
+        # Use the same Person object for C++
+        f.set(n)  # set new age
+        timings_cpp.append(time_function(f.fib, None))  # no argument needed for f.fib
 
     # Generate plots
     plt.figure()
